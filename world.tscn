@@ -1,0 +1,82 @@
+[gd_scene load_steps=11 format=3 uid="uid://bhbnf53thcpmb"]
+
+[ext_resource type="PackedScene" uid="uid://wwcpm8f7hav7" path="res://die.tscn" id="1_f3sb7"]
+[ext_resource type="Script" uid="uid://bd6vluvxg85wk" path="res://input_controller.gd" id="2_fj7yv"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_gv5m4"]
+sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+
+[sub_resource type="Sky" id="Sky_f3sb7"]
+sky_material = SubResource("ProceduralSkyMaterial_gv5m4")
+
+[sub_resource type="Environment" id="Environment_fj7yv"]
+background_mode = 2
+sky = SubResource("Sky_f3sb7")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_gv5m4"]
+size = Vector3(20, 0.005, 20)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_f3sb7"]
+size = Vector2(2000, 2000)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fj7yv"]
+albedo_color = Color(0.316297, 0.646793, 0.256616, 1)
+metallic_specular = 0.65
+roughness = 0.83
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fj7yv"]
+size = Vector3(77.335, 145.46, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tlwt5"]
+size = Vector3(1, 108.385, 84.0874)
+
+[node name="World" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_fj7yv")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Static" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Static"]
+shape = SubResource("BoxShape3D_gv5m4")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Static"]
+mesh = SubResource("PlaneMesh_f3sb7")
+surface_material_override/0 = SubResource("StandardMaterial3D_fj7yv")
+
+[node name="6SideDice" parent="." instance=ExtResource("1_f3sb7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0529112, 0.5125, -1.31531)
+
+[node name="InputController" type="Node3D" parent="."]
+script = ExtResource("2_fj7yv")
+
+[node name="Camera3D" type="Camera3D" parent="InputController"]
+transform = Transform3D(1, 0, 0, 0, 0.313429, 0.949612, 0, -0.949612, 0.313429, 0, 8.79537, 1.78546)
+
+[node name="MouseRay" type="RayCast3D" parent="InputController/Camera3D"]
+target_position = Vector3(0, 0, -100)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -11.474)
+shape = SubResource("BoxShape3D_fj7yv")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.65486)
+shape = SubResource("BoxShape3D_fj7yv")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.2508, 22.2665, 3.42199)
+shape = SubResource("BoxShape3D_tlwt5")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.0892, 22.2665, 3.42199)
+shape = SubResource("BoxShape3D_tlwt5")
