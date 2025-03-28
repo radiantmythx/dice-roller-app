@@ -17,7 +17,7 @@ tonemap_mode = 2
 glow_enabled = true
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_gv5m4"]
-size = Vector3(40, 5.44381, 40)
+size = Vector3(20, 0.005, 20)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_f3sb7"]
 size = Vector2(2000, 2000)
@@ -51,16 +51,14 @@ shadow_enabled = true
 [node name="Static" type="StaticBody3D" parent="."]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Static"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.70827, 0)
-shape = SubResource("BoxShape3D_gv5m4")
-
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="Static"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.28141, 0)
 shape = SubResource("BoxShape3D_gv5m4")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Static"]
 mesh = SubResource("PlaneMesh_f3sb7")
 surface_material_override/0 = SubResource("StandardMaterial3D_fj7yv")
+
+[node name="6SideDice" parent="." instance=ExtResource("1_f3sb7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0529112, 0.5125, -1.31531)
 
 [node name="InputController" type="Node3D" parent="."]
 script = ExtResource("2_fj7yv")
@@ -75,19 +73,19 @@ target_position = Vector3(0, 0, -100)
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -8.47291)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -11.474)
 shape = SubResource("BoxShape3D_fj7yv")
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.22941)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.65486)
 shape = SubResource("BoxShape3D_fj7yv")
 
 [node name="CollisionShape3D3" type="CollisionShape3D" parent="StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.6138, 22.2665, 3.42199)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.2508, 22.2665, 3.42199)
 shape = SubResource("BoxShape3D_tlwt5")
 
 [node name="CollisionShape3D4" type="CollisionShape3D" parent="StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.54163, 22.2665, 3.42199)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.0892, 22.2665, 3.42199)
 shape = SubResource("BoxShape3D_tlwt5")
 
 [node name="Control" type="Control" parent="."]
@@ -128,28 +126,15 @@ vertical_alignment = 1
 [node name="Buttons" type="HBoxContainer" parent="Control/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
-size_flags_vertical = 8
-
-[node name="Roll" type="Button" parent="Control/MarginContainer/VBoxContainer/Buttons"]
-layout_mode = 2
-size_flags_horizontal = 6
-theme_override_colors/font_hover_pressed_color = Color(0.934358, 0.934358, 0, 1)
-theme_override_font_sizes/font_size = 45
-text = "Roll!"
-
-[node name="Buttons2" type="HBoxContainer" parent="Control/MarginContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
 size_flags_vertical = 10
 
-[node name="Add D6" type="Button" parent="Control/MarginContainer/VBoxContainer/Buttons2"]
+[node name="Add D6" type="Button" parent="Control/MarginContainer/VBoxContainer/Buttons"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
 text = "Add D6"
 
-[node name="Remove All" type="Button" parent="Control/MarginContainer/VBoxContainer/Buttons2"]
+[node name="Remove All" type="Button" parent="Control/MarginContainer/VBoxContainer/Buttons"]
 layout_mode = 2
-size_flags_horizontal = 6
 theme_override_font_sizes/font_size = 30
 text = "Remove All Dice"
 
@@ -158,6 +143,5 @@ custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 theme_override_styles/separator = SubResource("StyleBoxEmpty_xb563")
 
-[connection signal="pressed" from="Control/MarginContainer/VBoxContainer/Buttons/Roll" to="InputController" method="roll_all_dice"]
-[connection signal="pressed" from="Control/MarginContainer/VBoxContainer/Buttons2/Add D6" to="InputController" method="_on_spawn_pressed"]
-[connection signal="pressed" from="Control/MarginContainer/VBoxContainer/Buttons2/Remove All" to="InputController" method="_on_clear_dice_pressed"]
+[connection signal="pressed" from="Control/MarginContainer/VBoxContainer/Buttons/Add D6" to="InputController" method="_on_spawn_pressed"]
+[connection signal="pressed" from="Control/MarginContainer/VBoxContainer/Buttons/Remove All" to="InputController" method="_on_clear_dice_pressed"]
